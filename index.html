@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoundScape AI – Smart Audio Companion</title>
+  <meta name="description"
+    content="SoundScape AI is a productivity and mental wellness tool featuring focus modes, mood-based audio, and smart session tracking.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🎧</text></svg>">
+
+    <link rel="stylesheet" href="style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="logo">
+          <span class="logo-icon">🎧</span>
+          <div class="logo-text">
+            <h1>SoundScape AI</h1>
+            <span class="tagline">Smart Audio Companion</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="status-indicator">
+          <span class="pulse-dot"></span>
+          <span>Ready</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- AI Mood Detector -->
+      <section class="ai-mood-section">
+        <div class="section-header">
+          <span class="section-icon">✨</span>
+          <h2>AI Mood Detector</h2>
+        </div>
+        <div class="mood-detector-card">
+          <p class="mood-description">Describe how you're feeling and I'll recommend the perfect audio mood for you.</p>
+          <div class="mood-input-group">
+            <textarea id="moodInput" placeholder="e.g., I need to focus on studying for my exam..." rows="3"></textarea>
+            <button id="detectMoodBtn" class="btn-primary">
+              <span class="btn-icon">🔮</span>
+              Detect My Mood
+            </button>
+          </div>
+          <div id="moodResult" class="mood-result hidden">
+            <div class="result-header">
+              <span class="result-icon">🎯</span>
+              <span>Recommended for you:</span>
+            </div>
+            <div class="result-content">
+              <span id="detectedMood" class="mood-badge"></span>
+              <span id="detectedMode" class="mode-badge"></span>
+            </div>
+            <button id="startSessionBtn" class="btn-secondary">Start Session</button>
+          </div>
+        </div>
+      </section>
+      <!-- Focus DNA Insights -->
+      <section class="focus-dna-section">
+        <div class="section-header">
+          <span class="section-icon">🧬</span>
+          <h2>Focus DNA</h2>
+        </div>
+        <div class="focus-dna-card">
+          <div class="dna-insight" id="dnaInsight">
+            <span class="insight-icon">🔍</span>
+            <p class="insight-text">Start listening to build your Focus DNA profile...</p>
+          </div>
+          <div class="dna-stats" id="dnaStats">
+            <div class="stat-item">
+              <span class="stat-label">Sessions</span>
+              <span class="stat-value" id="statSessions">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Avg Duration</span>
+              <span class="stat-value" id="statDuration">--</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Best Mood</span>
+              <span class="stat-value" id="statMood">--</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Peak Time</span>
+              <span class="stat-value" id="statTime">--</span>
+            </div>
+          </div>
+          <button class="btn-smart-session" id="smartSessionBtn">
+            <span class="btn-icon">⚡</span>
+            Start Smart Session
+          </button>
+        </div>
+      </section>
+
+
+      <!-- Focus Modes -->
+      <section class="focus-modes-section">
+        <div class="section-header">
+          <span class="section-icon">🎯</span>
+          <h2>Focus Modes</h2>
+        </div>
+        <div class="focus-modes-grid">
+          <div class="focus-card" data-mode="study">
+            <div class="focus-icon">📚</div>
+            <h3>Study Mode</h3>
+            <p>Deep concentration for learning and retention</p>
+            <div class="focus-moods">
+              <span class="mood-chip">calm</span>
+              <span class="mood-chip">focus</span>
+            </div>
+            <button class="btn-focus">Start Session</button>
+          </div>
+          <div class="focus-card" data-mode="focus">
+            <div class="focus-icon">💼</div>
+            <h3>Focus Mode</h3>
+            <p>Maximum productivity for work tasks</p>
+            <div class="focus-moods">
+              <span class="mood-chip">focus</span>
+              <span class="mood-chip">energetic</span>
+            </div>
+            <button class="btn-focus">Start Session</button>
+          </div>
+          <div class="focus-card" data-mode="relax">
+            <div class="focus-icon">🧘</div>
+            <h3>Relax Mode</h3>
+            <p>Unwind and destress after a long day</p>
+            <div class="focus-moods">
+              <span class="mood-chip">calm</span>
+              <span class="mood-chip">dreamy</span>
+            </div>
+            <button class="btn-focus">Start Session</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mood Filter -->
+      <section class="mood-filter-section">
+        <div class="section-header">
+          <span class="section-icon">🎨</span>
+          <h2>Filter by Mood</h2>
+        </div>
+        <div class="mood-filter-chips">
+          <button class="mood-filter-chip active" data-mood="all">All</button>
+          <button class="mood-filter-chip" data-mood="calm">😌 Calm</button>
+          <button class="mood-filter-chip" data-mood="focus">🎯 Focus</button>
+          <button class="mood-filter-chip" data-mood="energetic">⚡ Energetic</button>
+          <button class="mood-filter-chip" data-mood="dreamy">🌙 Dreamy</button>
+          <button class="mood-filter-chip" data-mood="uplifting">🌟 Uplifting</button>
+        </div>
+      </section>
+
+      <!-- Playlist Panel -->
+      <section class="playlist-section">
+        <div class="section-header">
+          <span class="section-icon">📁</span>
+          <h2>Playlists</h2>
+          <button id="togglePlaylistBtn" class="btn-icon-only">➕</button>
+        </div>
+        <div id="playlistPanel" class="playlist-panel hidden">
+          <div class="create-playlist">
+            <input type="text" id="newPlaylistName" placeholder="New playlist name..." />
+            <button id="createPlaylistBtn" class="btn-secondary">Create</button>
+          </div>
+        </div>
+        <div id="playlistList" class="playlist-list"></div>
+      </section>
+
+      <!-- Track List -->
+      <section class="tracks-section">
+        <div class="section-header">
+          <span class="section-icon">🎵</span>
+          <h2>Tracks</h2>
+        </div>
+        <div id="trackList" class="tracks-grid"></div>
+      </section>
+    </main>
+
+    <!-- Now Playing Bar -->
+    <div id="nowPlaying" class="now-playing hidden">
+      <div class="now-playing-info">
+        <div class="now-playing-icon">🎵</div>
+        <div class="now-playing-details">
+          <span id="nowPlayingTitle" class="now-playing-title"></span>
+          <span id="nowPlayingMood" class="now-playing-mood"></span>
+        </div>
+      </div>
+      <div class="now-playing-controls">
+        <button id="prevBtn" class="control-btn">⏮️</button>
+        <button id="playPauseBtn" class="control-btn play-btn">▶️</button>
+        <button id="nextBtn" class="control-btn">⏭️</button>
+      </div>
+      <div class="now-playing-progress">
+        <span id="currentTime">0:00</span>
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+        <span id="duration">0:00</span>
+      </div>
+      <div class="volume-control">
+        <span class="volume-icon">🔊</span>
+        <input type="range" id="volumeSlider" min="0" max="100" value="80">
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
