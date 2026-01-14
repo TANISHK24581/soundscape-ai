@@ -36,6 +36,10 @@ const moodIcons = {
   dreamy: "🌙",
   uplifting: "🌟"
 };
+const durationCache = JSON.parse(
+  localStorage.getItem("soundscape_durations")
+) || {};
+
 
 // ===== State =====
 let currentTrackIndex = -1;
@@ -100,6 +104,22 @@ function generateId() {
 audio.addEventListener("loadedmetadata", () => {
   durationEl.textContent = formatTime(audio.duration);
 });
+function preloadTrackDurations() {
+  tracks.forEach(track => {
+    if (durationCache[track.id]) return;
+
+    const tempAudio = new Audio(track.audioUrl);
+    tempAudio.addEventListener("loadedmetadata", () => {
+      durationCache[track.id] = Math.floor(tempAudio.duration);
+      localStorage.setItem(
+        "soundscape_durations",
+        JSON.stringify(durationCache)
+      );
+      renderTracks(); // update UI when duration arrives
+    });
+  });
+}
+
 
 
 // ===== Playlist Functions =====
@@ -215,7 +235,7 @@ function togglePlaylistPanel() {
 }
 
 function showAddToPlaylistMenu(trackId, buttonEl) {
-  
+
   document.querySelectorAll(".add-to-playlist-menu").forEach(m => m.remove());
 
   if (playlists.length === 0) {
@@ -282,7 +302,12 @@ function renderTracks() {
         <div class="track-title">${track.title}</div>
         <div class="track-meta">
           <span class="track-mood">${track.mood}</span>
-          <span>--:--</span>
+          <span>
+            ${durationCache[track.id]
+            ? formatTime(durationCache[track.id])
+            : "--:--"}
+          </span>
+
 
         </div>
       </div>
@@ -340,15 +365,15 @@ function updateNowPlaying() {
   nowPlayingMoodEl.textContent = `${moodIcons[track.mood]} ${track.mood}`;
   playPauseBtnEl.textContent = isPlaying ? "⏸️" : "▶️";
   durationEl.textContent = audio.duration
-  ? formatTime(audio.duration)
-  : "--:--";
+    ? formatTime(audio.duration)
+    : "--:--";
 
 }
 
 // ===== Audio Controls =====
 function playTrack(index) {
   if (index < 0 || index >= tracks.length) return;
-  
+
   const track = tracks[index];
   currentTrackIndex = index;
 
@@ -456,36 +481,36 @@ function detectMood(text) {
   const lowerText = text.toLowerCase();
 
   const moodKeywords = {
-  calm: [
-    "relax", "peace", "calm", "stress", "anxiety", "sleep", "tired", "rest", "unwind",
-    "slow", "quiet", "soothing", "breathe", "meditate", "relief", "ease", "cool",
-    "light", "gentle", "comfort"
-  ],
+    calm: [
+      "relax", "peace", "calm", "stress", "anxiety", "sleep", "tired", "rest", "unwind",
+      "slow", "quiet", "soothing", "breathe", "meditate", "relief", "ease", "cool",
+      "light", "gentle", "comfort"
+    ],
 
-  focus: [
-    "focus", "work", "study", "concentrate", "productive", "deadline", "project", "code",
-    "exam", "assignment", "task", "deep", "attention", "research", "analyze", "learn",
-    "practice", "revision"
-  ],
+    focus: [
+      "focus", "work", "study", "concentrate", "productive", "deadline", "project", "code",
+      "exam", "assignment", "task", "deep", "attention", "research", "analyze", "learn",
+      "practice", "revision"
+    ],
 
-  energetic: [
-    "energy", "workout", "exercise", "gym", "dance", "party", "excited", "pump",
-    "run", "training", "cardio", "move", "fast", "active", "power", "boost",
-    "hype", "intense"
-  ],
+    energetic: [
+      "energy", "workout", "exercise", "gym", "dance", "party", "excited", "pump",
+      "run", "training", "cardio", "move", "fast", "active", "power", "boost",
+      "hype", "intense"
+    ],
 
-  dreamy: [
-    "dream", "creative", "imagination", "art", "music", "romantic", "love", "gentle",
-    "chill", "float", "soft", "ambient", "aesthetic", "calming", "peaceful",
-    "mellow", "smooth"
-  ],
+    dreamy: [
+      "dream", "creative", "imagination", "art", "music", "romantic", "love", "gentle",
+      "chill", "float", "soft", "ambient", "aesthetic", "calming", "peaceful",
+      "mellow", "smooth"
+    ],
 
-  uplifting: [
-    "happy", "joy", "celebrate", "motivation", "inspire", "positive", "good", "great",
-    "smile", "cheer", "hope", "bright", "confident", "success", "achieve",
-    "encourage", "win"
-  ]
-};
+    uplifting: [
+      "happy", "joy", "celebrate", "motivation", "inspire", "positive", "good", "great",
+      "smile", "cheer", "hope", "bright", "confident", "success", "achieve",
+      "encourage", "win"
+    ]
+  };
 
 
   let bestMood = "focus";
@@ -867,5 +892,7 @@ console.log("🧬 Focus DNA system initialized!");
 audio.volume = 0.8;
 renderPlaylists();
 renderTracks();
+preloadTrackDurations();
+
 
 console.log("initialized");
