@@ -9,12 +9,10 @@ const tracks = [
   { id: "6", title: "Sab Tera", mood: "calm", audioUrl: "SONGS/Sab Tera 128 Kbps.mp3" },
   { id: "7", title: "Sahiba", mood: "dreamy", audioUrl: "SONGS/Sahiba 128 Kbps.mp3" },
   { id: "8", title: "Soch Na Sake", mood: "calm", audioUrl: "SONGS/Soch Na Sake 128 Kbps.mp3" },
-  { id: "9", title: "Sulthan", mood: "energetic", audioUrl: "SONGS/Sulthan 128 Kbps.mp3" },
   { id: "10", title: "Laal Pari", mood: "uplifting", audioUrl: "SONGS/128-Laal Pari - Housefull 5 128 Kbps.mp3" },
   { id: "11", title: "Tujhe Kitna Chahne Lage", mood: "calm", audioUrl: "SONGS/Tujhe Kitna Chahne Lage 128 Kbps.mp3" },
-  { id: "12", title: "With You", mood: "focus", audioUrl: "SONGS/With You 128 Kbps.mp3" },
 
-  // NEW SONGS folder
+  // NEW SONGS folder 
   { id: "13", title: "Aabaad Barbaad", mood: "dreamy", audioUrl: "NEW SONGS/Aabaad Barbaad 128 Kbps.mp3" },
   { id: "14", title: "Dil Chori", mood: "energetic", audioUrl: "NEW SONGS/Dil Chori 128 Kbps.mp3" },
   { id: "15", title: "Heeriye", mood: "uplifting", audioUrl: "NEW SONGS/Heeriye 128 Kbps.mp3" },
@@ -27,6 +25,7 @@ const tracks = [
   { id: "22", title: "Tera Ban Jaunga", mood: "dreamy", audioUrl: "NEW SONGS/Tera Ban Jaunga 128 Kbps.mp3" },
   { id: "23", title: "With You (New)", mood: "focus", audioUrl: "NEW SONGS/With You 128 Kbps.mp3" }
 ];
+
 
 
 const moodIcons = {
